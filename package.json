@@ -1,0 +1,23 @@
+{
+  "name": "wordle",
+  "version": "1.0.0",
+  "description": "",
+  "main": "feedback.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dusknery/Wordle.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dusknery/Wordle/issues"
+  },
+  "homepage": "https://github.com/Dusknery/Wordle#readme",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
