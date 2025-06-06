@@ -1,0 +1,10 @@
+{
+  "name": "wordle-root",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "npm run start --prefix Backend"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
