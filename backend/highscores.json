@@ -1,1 +1,25 @@
-[]
+[
+  {
+    "name": "Linnea",
+    "time": 24326,
+    "guesses": [
+      "GRAPE",
+      "MELON",
+      "BERRY"
+    ],
+    "length": 5,
+    "allowRepeats": true
+  },
+  {
+    "name": "Linnea",
+    "time": 104639,
+    "guesses": [
+      "FLYGPLA",
+      "SKICKAS",
+      "STJÄRNA",
+      "STÖVLAR"
+    ],
+    "length": 7,
+    "allowRepeats": false
+  }
+]

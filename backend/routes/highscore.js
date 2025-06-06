@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const router = express.Router();
 
-const highscoresPath = path.join(__dirname, '../database/highscores.json');
+const highscoresPath = path.join(__dirname, '../highscores.json');
 
 // Hämta highscores
 router.get('/highscores', (req, res) => {
@@ -17,7 +17,7 @@ router.get('/highscores', (req, res) => {
 // Lägg till ny highscore
 router.post('/highscores', (req, res) => {
     const { name, time, guesses, length, allowRepeats } = req.body;
-    if (!name || !time || !guesses || !length) {
+    if (!name || time === undefined || !Array.isArray(guesses) || !length) {
         return res.status(400).json({ error: 'Felaktig data.' });
     }
     let highscores = [];

@@ -4,7 +4,7 @@ function Highscore() {
   const [highscores, setHighscores] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5080/api/highscores')
+    fetch('/api/highscores')
       .then(res => res.json())
       .then(data => setHighscores(data));
   }, []);

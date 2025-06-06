@@ -20,14 +20,12 @@ if (fs.existsSync(highscoresPath)) {
 const GameRoutes = require('./routes/game');
 const HighscoreRoutes = require('./routes/highscore');
 
-// Servera frontend-builden
-app.use(express.static(path.join(__dirname, '../frontend/build')));
-
-// API-routes
+// API-routes 
 app.use('/api', GameRoutes);
 app.use('/api', HighscoreRoutes);
 
-// Fånga alla andra routes och skicka tillbaka index.html från build-mappen
+// Servera frontend-builden
+app.use(express.static(path.join(__dirname, '../frontend/build')));
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
 });

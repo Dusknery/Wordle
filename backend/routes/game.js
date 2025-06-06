@@ -40,7 +40,6 @@ router.post('/feedback', (req, res) => {
 });
 
 function getFeedback(guess, answer) {
-    // Enkel feedback-logik, byt ut mot din riktiga om du har en!
     return Array.from(guess).map((char, i) => ({
         letter: char,
         result: guess[i] === answer[i] ? 'correct' : answer.includes(char) ? 'misplaced' : 'wrong'

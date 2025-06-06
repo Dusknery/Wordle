@@ -1,7 +1,14 @@
 [
-  "apple",
-  "grape",
-  "melon",
-  "peach",
-  "berry"
-]
+    "is", "sol", "bok", "hund", "glass", "träd", "havet", "svara", "snöig", "flicka",
+    "spring", "cykla", "hjälpa", "skriva", "dagbok", "känsla", "skickas", "läraren",
+    "spännande", "fantasi", "färg", "katt", "vila", "blommor", "regnar", "snöstorm",
+    "dröm", "vaknar", "värme", "sommar", "vinter", "höst", "vårdag", "regnbåge", "himlen",
+    "stjärna", "moln", "vind", "morgon", "kväll", "sked", "mat", "middag", "lunch", "frukost",
+    "skinka", "ost", "gurka", "smörgås", "äpple", "banan", "jordgubb", "citron", "kläder",
+    "tröja", "byxor", "jacka", "vantar", "mössa", "strumpor", "skor", "stövlar", "regnrock",
+    "skugga", "fönster", "dörr", "nyckel", "hus", "lägenhet", "trappa", "balkong", "soffa",
+    "bord", "stol", "säng", "dator", "mobil", "tvättmaskin", "dammsugare", "bokhylla",
+    "spegel", "kudde", "täcke", "lampa", "ljus", "eld", "vatten", "bensin", "bil", "cykel",
+    "buss", "tåg", "flygplan", "helikopter", "resa", "semester", "vardag", "helg", "jobb",
+    "skola", "universitet", "bibliotek", "museum", "teater", "bio", "konsert", "festival",
+    "utställning", "konst", "musik", "dans", "film", "bokhandel", "café", "restaurang"]

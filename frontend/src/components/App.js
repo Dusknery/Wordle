@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import Game from './game';
+import Game from './Game';
 import Highscore from './highscore';
 import About from './about';
 import './app.css';
@@ -11,18 +11,8 @@ function App() {
     <Router>
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/components/app.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+          <h1 className="wordle-title">WORDLE</h1>
+          <hr className="wordle-hr" />
         </header>
         <nav>
           <Link to="/">Spela</Link> | <Link to="/highscore">Highscore</Link> |{' '}

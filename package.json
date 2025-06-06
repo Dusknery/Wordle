@@ -2,9 +2,13 @@
   "name": "wordle-root",
   "version": "1.0.0",
   "scripts": {
-    "start": "npm run start --prefix Backend"
+    "start": "npm run build --prefix frontend && npm run start --prefix backend",
+    "build": "npm run build --prefix frontend"
   },
   "dependencies": {
     "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   }
 }

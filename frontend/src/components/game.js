@@ -5,7 +5,7 @@ import { Route } from 'react-router-dom';
 import Highscore from './highscore';
 import About from './about';
 
-const MAX_GUESSES = 20; 
+const MAX_GUESSES = 5; 
 
 function Game() {
   const [guesses, setGuesses] = useState([]);
@@ -19,6 +19,7 @@ function Game() {
   const [allowRepeats, setAllowRepeats] = useState(true);
   const [gameStarted, setGameStarted] = useState(false);
   const [startTime, setStartTime] = useState(Date.now());
+  const [timer, setTimer] = useState(0);
 
   // Hämta ord från backend när komponenten laddas
   useEffect(() => {
@@ -29,6 +30,14 @@ function Game() {
         setLoading(false);
       });
   }, [wordLength, allowRepeats]);
+
+  useEffect(() => {
+    let interval;
+    if (gameStarted && !gameOver) {
+      interval = setInterval(() => setTimer(t => t + 1), 1000);
+    }
+    return () => clearInterval(interval);
+  }, [gameStarted, gameOver]);
 
   function getFeedback(guess, answer) {
     return guess.split('').map((letter, i) => {
@@ -76,6 +85,7 @@ function Game() {
               e.preventDefault();
               setStartTime(Date.now());
               setGameStarted(true);
+              setTimer(0);
               setLoading(true);
               fetch(`http://localhost:5080/api/word?length=${wordLength}&allowRepeats=${allowRepeats}`)
                 .then(res => res.json())
@@ -114,40 +124,37 @@ function Game() {
       )}
       {gameStarted && (
         <div>
-          <div className="board">
-            {[...Array(MAX_GUESSES)].map((_, rowIdx) => (
-              <div className="row" key={rowIdx}>
-                {[...Array(wordLength)].map((_, colIdx) => {
-                  let letter = '';
-                  let color = '';
-                  if (guesses[rowIdx]) {
-                    letter = guesses[rowIdx][colIdx];
-                    color = feedbacks[rowIdx][colIdx];
-                  } else if (rowIdx === guesses.length) {
-                    letter = currentGuess[colIdx] || '';
-                  }
-                  return (
-                    <div className={`cell ${color}`} key={colIdx}>
-                      {letter}
-                    </div>
-                  );
-                })}
-              </div>
-            ))}
+          {/* Timer överst */}
+          <div style={{ fontWeight: 'bold', fontSize: '1.2em', marginBottom: '1em', textAlign: 'center' }}>
+            Tid: {timer} sekunder
           </div>
+          {/* Inputfältet ovanför brädet */}
           {!gameOver && (
-            <input
-              type="text"
-              value={currentGuess}
-              onChange={handleChange}
-              onKeyDown={handleKeyDown}
-              maxLength={wordLength}
-              disabled={gameOver}
-              style={{ textTransform: 'uppercase', marginTop: '1em' }}
-            />
+            <div style={{ display: 'flex', gap: '1em', alignItems: 'center', justifyContent: 'center', marginBottom: '1em' }}>
+              <input
+                type="text"
+                value={currentGuess}
+                onChange={handleChange}
+                onKeyDown={handleKeyDown}
+                maxLength={wordLength}
+                disabled={gameOver}
+                autoFocus
+                style={{
+                  textTransform: 'uppercase',
+                  fontSize: '2em',
+                  textAlign: 'center',
+                  letterSpacing: '0.2em',
+                  width: `${wordLength * 2}em`
+                }}
+              />
+              <button onClick={handleKeyDown} style={{ fontSize: '1.2em', padding: '0.5em 1.5em' }}>
+                Gissa
+              </button>
+            </div>
           )}
+          {/* Vinst/förlust-meddelande och highscore-formulär överst */}
           {gameOver && guesses[guesses.length - 1] === answer && (
-            <div>
+            <div style={{ textAlign: 'center', marginTop: '2em' }}>
               <h3>Du vann!</h3>
               <p>Rätt ord var: {answer}</p>
               <form
@@ -158,13 +165,14 @@ function Game() {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                       name,
-                      time: Date.now() - startTime, // startTime = när spelet startade
+                      time: Date.now() - startTime,
                       guesses,
                       length: wordLength,
                       allowRepeats
                     })
                   }).then(() => alert('Highscore sparad!'));
                 }}
+                style={{ marginTop: '1em' }}
               >
                 <input
                   type="text"
@@ -174,22 +182,43 @@ function Game() {
                   pattern="[A-Za-zÅÄÖåäö ]+"
                   onChange={e => setName(e.target.value.replace(/[^A-Za-zÅÄÖåäö ]/g, ''))}
                   required
+                  style={{ fontSize: '1.1em', marginRight: '1em' }}
                 />
-                <button type="submit">Spara highscore</button>
+                <button type="submit" style={{ fontSize: '1.1em' }}>Spara highscore</button>
               </form>
             </div>
           )}
-          {gameOver && guesses[guesses.length - 1] !== answer && (
-            <div>
-              <h3>Försök igen!</h3>
-              <p>Rätt ord var: {answer}</p>
-            </div>
-          )}
+     {gameOver && guesses[guesses.length - 1] !== answer && (
+  <div style={{ textAlign: 'center', marginTop: '2em' }}>
+    <h3>Försök igen!</h3>
+    <p>Rätt ord var: {answer}</p>
+  </div>
+)}    
+          
+          {/* Spelbrädet */}
+          <div className="board">
+            {[...Array(MAX_GUESSES)].map((_, rowIdx) => (
+              <div className="row" key={rowIdx}>
+                {[...Array(wordLength)].map((_, colIdx) => {
+                  let letter = '';
+                  let color = '';
+                  if (guesses[rowIdx]) {
+                    letter = guesses[rowIdx][colIdx];
+                    color = feedbacks[rowIdx][colIdx];
+                  } else if (rowIdx === guesses.length && !gameOver) {
+                    letter = currentGuess[colIdx] || '';
+                  }
+                  return (
+                    <div className={`cell ${color}`} key={colIdx}>
+                      {letter}
+                    </div>
+                  );
+                })}
+              </div>
+            ))}
+          </div>div>
         </div>
       )}
-      <Route path="/" element={<Game />} />
-      <Route path="/highscore" element={<Highscore />} />
-      <Route path="/about" element={<About />} />
     </div>
   );
 }
