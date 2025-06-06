@@ -124,11 +124,9 @@ function Game() {
       )}
       {gameStarted && (
         <div>
-          {/* Timer överst */}
           <div style={{ fontWeight: 'bold', fontSize: '1.2em', marginBottom: '1em', textAlign: 'center' }}>
             Tid: {timer} sekunder
           </div>
-          {/* Inputfältet ovanför brädet */}
           {!gameOver && (
             <div style={{ display: 'flex', gap: '1em', alignItems: 'center', justifyContent: 'center', marginBottom: '1em' }}>
               <input
@@ -152,7 +150,6 @@ function Game() {
               </button>
             </div>
           )}
-          {/* Vinst/förlust-meddelande och highscore-formulär överst */}
           {gameOver && guesses[guesses.length - 1] === answer && (
             <div style={{ textAlign: 'center', marginTop: '2em' }}>
               <h3>Du vann!</h3>
@@ -195,7 +192,6 @@ function Game() {
   </div>
 )}    
           
-          {/* Spelbrädet */}
           <div className="board">
             {[...Array(MAX_GUESSES)].map((_, rowIdx) => (
               <div className="row" key={rowIdx}>
